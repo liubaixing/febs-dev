@@ -1,8 +1,8 @@
 package ${basePackage}.${servicePackage};
 
+import com.febs.common.entity.QueryRequest;
 import ${basePackage}.${entityPackage}.${className};
 
-import cc.mrbird.febs.common.entity.QueryRequest;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 

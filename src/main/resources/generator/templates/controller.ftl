@@ -1,28 +1,24 @@
-package cc.mrbird.febs.system.controller;
+package com.febs.system.controller;
 
-import cc.mrbird.febs.common.annotation.ControllerEndpoint;
-import cc.mrbird.febs.common.utils.FebsUtil;
-import cc.mrbird.febs.common.entity.FebsConstant;
-import cc.mrbird.febs.common.controller.BaseController;
-import cc.mrbird.febs.common.entity.FebsResponse;
-import cc.mrbird.febs.common.entity.QueryRequest;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.febs.common.annotation.ControllerEndpoint;
+import com.febs.common.controller.BaseController;
+import com.febs.common.entity.FebsResponse;
+import com.febs.common.entity.QueryRequest;
+import com.febs.common.utils.ExcelUtil;
 import ${basePackage}.${entityPackage}.${className};
 import ${basePackage}.${servicePackage}.I${className}Service;
-import com.wuwenze.poi.ExcelKit;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -41,10 +37,6 @@ public class ${className}Controller extends BaseController {
     @Autowired
     private I${className}Service ${className?uncap_first}Service;
 
-    @GetMapping(FebsConstant.VIEW_PREFIX + "${className?uncap_first}")
-    public String ${className?uncap_first}Index(){
-        return FebsUtil.view("${className?uncap_first}/${className?uncap_first}");
-    }
 
     @GetMapping("")
     @RequiresPermissions("${className?uncap_first}:list")
@@ -59,7 +51,7 @@ public class ${className}Controller extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
-    @ControllerEndpoint(operation = "新增${className}", exceptionMessage = "新增${className}失败")
+    @ControllerEndpoint(operation = "新增${tableComment}", exceptionMessage = "新增${tableComment}失败")
     @PostMapping("")
     @RequiresPermissions("${className?uncap_first}:add")
     public FebsResponse add${className}(@Valid ${className} ${className?uncap_first}) {
@@ -67,7 +59,7 @@ public class ${className}Controller extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "删除${className}", exceptionMessage = "删除${className}失败")
+    @ControllerEndpoint(operation = "删除${tableComment}", exceptionMessage = "删除${tableComment}失败")
     @GetMapping("delete/{ids}")
     @RequiresPermissions("${className?uncap_first}:delete")
     public FebsResponse delete${className}(@NotBlank(message = "{required}") @PathVariable String ids) {
@@ -76,7 +68,7 @@ public class ${className}Controller extends BaseController {
         return new FebsResponse().success();
     }
 
-    @ControllerEndpoint(operation = "修改${className}", exceptionMessage = "修改${className}失败")
+    @ControllerEndpoint(operation = "修改${tableComment}", exceptionMessage = "修改${tableComment}失败")
     @PostMapping("/update")
     @RequiresPermissions("${className?uncap_first}:update")
     public FebsResponse update${className}(${className} ${className?uncap_first}) {
@@ -87,8 +79,8 @@ public class ${className}Controller extends BaseController {
     @ControllerEndpoint(exceptionMessage = "导出Excel失败")
     @GetMapping("excel")
     @RequiresPermissions("${className?uncap_first}:export")
-    public void export(QueryRequest queryRequest, ${className} ${className?uncap_first}, HttpServletResponse response) {
+    public void export(QueryRequest queryRequest, ${className} ${className?uncap_first}, HttpServletResponse response) throws IOException {
         List<${className}> ${className?uncap_first}s = this.${className?uncap_first}Service.find${className}s(queryRequest, ${className?uncap_first}).getRecords();
-        ExcelKit.$Export(${className}.class, response).downXlsx(${className?uncap_first}s, false);
+        ExcelUtil.export(${className?uncap_first}s, ${className}.class,"${tableComment}",response);
     }
 }

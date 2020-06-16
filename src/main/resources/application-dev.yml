@@ -47,3 +47,8 @@ spring:
         max-wait: 10000
     # 连接超时时间（毫秒）
     timeout: 5000
+
+qiniu:
+  accessKey: ozX8042a8IDCFOJEKyulC5sK0GaMZoA60ZFMDGkp
+  secretKey: 1eqnKiLsIl4h7UXXXcXXUrjq-CLepZcv3zUcbFrT
+  bucket: febs-sp
