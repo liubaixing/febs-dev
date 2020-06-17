@@ -1,6 +1,5 @@
 package com.febs.common.authentication;
 
-import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.febs.common.properties.FebsProperties;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -155,10 +154,10 @@ public class ShiroConfig {
      *
      * @return ShiroDialect shiro 方言对象
      */
-    @Bean
+    /*@Bean
     public ShiroDialect shiroDialect() {
         return new ShiroDialect();
-    }
+    }*/
 
     @Bean
     public RedisSessionDAO redisSessionDAO() {

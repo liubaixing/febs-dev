@@ -9,7 +9,6 @@ import lombok.Data;
 public class ShangpinGysResp extends ShangpinGys {
 
     @ExcelProperty(value = "供应商",index = 12)
-    @ExcelField("供应商")
     private String gysmc;
 
     @ExcelProperty(value = "计量单位",index = 13)
